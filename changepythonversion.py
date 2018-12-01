@@ -10,7 +10,7 @@ def changepythonversion():
     print("Python version is "+str(currentversion))
 
     if currentversion < 3:
-        pythons = filter(os.listdir(lambda x: 'python' in x and '.' in x and '-' not in x and 'm' not in x, '/usr/bin/'))
+        pythons = filter(lambda x: 'python' in x and '.' in x and '-' not in x and 'm' not in x, os.listdir('/usr/bin/'))
         if 'python3.7' not in pythons:
             subprocess.check_output('./installpython37.sh')
 
