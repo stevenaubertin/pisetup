@@ -5,7 +5,7 @@ import sys
 
 def set_hostname(hostname, filepath='/etc/hostname'):
     with open(filepath, 'w') as fp:
-        fp.writelines([hostname])
+        fp.writelines([hostname, '\n'])
 
 
 if __name__ == "__main__":
