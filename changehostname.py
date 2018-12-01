@@ -9,7 +9,8 @@ def set_hostname(hostname, filepath='/etc/hostname'):
 
 
 if __name__ == "__main__":
-        l = len(sys.argv)
+        args = sys.argv[1:]
+        l = len(args)
         if l > 2 or l < 1:
                 print("""Usage : sudo python changehostname.py hostname [filepath]
                 \t hostname : specify the hostname to use
