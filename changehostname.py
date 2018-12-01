@@ -13,6 +13,6 @@ if __name__ == "__main__":
         l = len(args)
         if l > 2 or l < 1:
                 print("""Usage : sudo python changehostname.py hostname [filepath]
-                \t hostname : specify the hostname to use
-                \t filepath : specify the hostname filepath""")
+                hostname : specify the hostname to use
+                filepath : specify the hostname filepath""")
         sys.exit(0)
