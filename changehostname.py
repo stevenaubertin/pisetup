@@ -29,7 +29,7 @@ def set_hostname(hostname, keep_backup=True):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Change hostname of the Pi')
     parser.add_argument('hostname', required=True, type=str, help='the hostname to use')
-    parser.add_argument('backup', type=bool, help='indicate if the original files should be keep')
+    parser.add_argument('--backup', type=bool, help='indicate if the original files should be keep')
 
     args = parser.parse_args()
     set_hostname(args.hostname, args.backup)
