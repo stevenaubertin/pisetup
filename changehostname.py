@@ -2,14 +2,19 @@
 
 import sys
 import os
+from shutil import copyfile
 
 
-def set_hostname(hostname, filepath='/etc/hostname'):
+def set_hostname(hostname, filepath='/etc/hostname', keep_backup=True):
+    if keep_backup:
+        copyfile(filepath, filepath+'.old')
     with open(filepath, 'w') as fp:
         fp.writelines([hostname, '\n'])
 
     hostsfile = '/etc/hosts'
     if os.path.exists(hostsfile):
+        if keep_backup:
+            copyfile(hostsfile, hostsfile + '.old')
         with open(hostsfile, 'w') as fp:
             fp.seek(-len(os.linesep), os.SEEK_END)
             fp.write("127.0.0.1\t"+hostname + os.linesep)
