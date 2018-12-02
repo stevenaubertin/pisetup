@@ -9,7 +9,7 @@ def set_hostname(hostname, filepath='/etc/hostname'):
         fp.writelines([hostname, '\n'])
     with open('/etc/hosts') as fp:
         fp.seek(-len(os.linesep), os.SEEK_END)
-        fp.write(hostname + os.linesep)
+        fp.write("127.0.0.1\t"+hostname + os.linesep)
 
 
 if __name__ == "__main__":
