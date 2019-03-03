@@ -7,3 +7,6 @@ locale-gen --purge
 locale-gen "$1 UTF-8"
 update-locale LANG="$1"
 dpkg-reconfigure -f noninteractive locales
+
+echo "locale will be updated after reboot"
+echo "default value : $(cat /etc/default/locale | grep LANG)"
