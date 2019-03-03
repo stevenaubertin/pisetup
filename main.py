@@ -20,7 +20,7 @@ caller.call('./localization/timezone.sh', configs['timezone'])
 # Setup Network
 caller.call('./network/toggle_ssh.sh', configs['toggle_ssh'])
 
-# Setup Optimization
+# Setup System
 caller.call('./hardware/disable_swap.sh')
 caller.call('./hardware/memsplit.sh', configs['memsplit'])
 
