@@ -1,6 +1,10 @@
 {
-    "memsplit":"16",
     "locale":"en_CA.UTF-8",
     "timezone":"America/Toronto",
-    "ssh":"Enable"
+    "memsplit":"16",
+    "disable_swap":"True",
+    "toggle_ssh":"Enable",
+    "logfile":"pisetup.log",
+    "logformat":"[%(levelname)s]:%(asctime)s %(message)s",
+    "upgrade":"True"
 }
