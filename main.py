@@ -21,7 +21,7 @@ caller.call('./localization/timezone.sh', configs['timezone'])
 caller.call('./network/toggle_ssh.sh', configs['toggle_ssh'])
 
 # Setup Optimization
-caller.call('./hardware/disable_swap.sh', configs['disable_swap'])
+caller.call('./hardware/disable_swap.sh')
 caller.call('./hardware/memsplit.sh', configs['memsplit'])
 
 # Install Packages
