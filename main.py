@@ -25,7 +25,11 @@ caller.call('./hardware/disable_swap.sh')
 caller.call('./hardware/memsplit.sh', configs['memsplit'])
 
 # Install Packages
+caller.call('./docker/install.sh')
+caller.call('./kubernetes/install.sh')
 
+
+# Setup 
 
 # Reboot
 os.system('reboot')
