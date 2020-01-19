@@ -31,7 +31,7 @@ class Caller:
         filename = filename if filename[:2] == './' else ''.join(['./', filename])
         argv = ' '.join([str(i) for i in argv])
 
-        if filename[:-2] == '.py':
+        if filename[-3:] == '.py':
             self.call_python(filename, argv)
         else:
             self.call_sh(filename, argv)
