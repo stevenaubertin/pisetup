@@ -13,6 +13,9 @@ with open('./config.json', 'r') as fp:
 logging.basicConfig(format=configs['logformat'], filename=configs['logfile'], level=logging.INFO)
 caller = Caller(logging)
 
+# Install some package
+caller.call("./git/install.sh")
+
 # Setup localization
 caller.call('./localization/locale.sh', configs['locale'])
 caller.call('./localization/timezone.sh', configs['timezone'])
