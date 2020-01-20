@@ -34,8 +34,5 @@ caller.call('./hardware/memsplit.sh', configs['memsplit'])
 caller.call('./docker/install.sh')
 #caller.call('./kubernetes/install.sh')
 
-
-# Setup 
-
 # Reboot
-os.system('reboot')
+caller.os_call('reboot')
