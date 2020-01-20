@@ -32,7 +32,7 @@ caller.call('./hardware/memsplit.sh', configs['memsplit'])
 
 # Install Packages
 caller.call('./docker/install.sh')
-caller.call('./kubernetes/install.sh')
+#caller.call('./kubernetes/install.sh')
 
 
 # Setup 
