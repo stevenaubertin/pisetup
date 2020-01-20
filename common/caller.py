@@ -28,10 +28,11 @@ class Caller:
     def call(self, filename, *argv):
         self.logger.info('calling \"{}\" with args {}'.format(filename, ' '.join([str(i) for i in argv])))
 
-        filename = filename if filename[:2] == './' else ''.join(['./', filename])
-        argv = ' '.join([str(i) for i in argv])
+        name, ext = os.path.splitext(filename)
 
-        if filename[-3:] == '.py':
+        if ext is '.py':
             self.call_python(filename, argv)
-        else:
+        if ext is '.sh':
             self.call_sh(filename, argv)
+        
+        raise 'Unable to call {}'.format(filename)
