@@ -14,7 +14,7 @@ logging.basicConfig(format=configs['logformat'], filename=configs['logfile'], le
 caller = Caller(logging)
 
 # Update
-caller.call_sh
+caller.os_call('apt-get update'.split())
 
 # Install some package
 caller.call("./git/install.sh")
