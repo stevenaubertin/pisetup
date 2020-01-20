@@ -13,11 +13,13 @@ with open('./config.json', 'r') as fp:
 logging.basicConfig(format=configs['logformat'], filename=configs['logfile'], level=logging.INFO)
 caller = Caller(logging)
 
-# Update
-caller.os_call('apt-get update'.split())
-
-# Install some package
-caller.call("./git/install.sh")
+# Packages
+if configs['update'] is True:
+    caller.call('./package/update.sh')
+if configs['upgrade'] is True:
+    caller.call('./package/upgrade.sh')
+for package in configs['packages']:
+    caller.call('./package/install.sh', package)
 
 # Setup localization
 caller.call('./localization/locale.sh', configs['locale'])

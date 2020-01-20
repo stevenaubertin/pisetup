@@ -5,5 +5,10 @@
     "toggle_ssh":"Enable",
     "logfile":"pisetup.log",
     "logformat":"[%(levelname)s]:%(asctime)s %(message)s",
-    "upgrade":"True"
+    "update":"True",
+    "upgrade":"True",
+    "packages":[
+        "git",
+        "curl"
+    ]
 }
