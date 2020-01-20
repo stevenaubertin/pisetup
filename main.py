@@ -32,7 +32,7 @@ caller.call('./network/toggle_ssh.sh', configs['toggle_ssh'])
 caller.call('./hardware/disable_swap.sh')
 caller.call('./hardware/memsplit.sh', configs['memsplit'])
 
-# Install Packages
+# Install Docker
 caller.call('./docker/install.sh')
 #caller.call('./kubernetes/install.sh')
 
