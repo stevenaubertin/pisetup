@@ -22,8 +22,8 @@ statics_regex = re.compile(
 
 response = requests.request(
     "GET", 
-    "https://192.168.1.1/update.cgi?_http_id=TIDc10a77e0747f92d5&_nextwait=1&exec=devlist", 
-    headers={ 'Authorization': 'Basic YmFuYW5ldmVydGU6SSBtYW5hZ2UgdGhlIG5ldyBmcnVpdCBiYXNrZXQgY2xvc2VseQ==' }, 
+    '<URL>, 
+    headers={ 'Authorization': '<AUTH>' }, 
     data = {},
     verify = False
 )
