@@ -31,7 +31,7 @@ class Caller:
 
         if ext == '.py':
             self.call_python(filename, argv)
-        if ext == '.sh':
+        elif ext == '.sh':
             self.call_sh(filename, argv)
-        
-        raise 'Unable to call {}'.format(filename)
+        else:
+            raise 'Unable to call {}'.format(filename)
