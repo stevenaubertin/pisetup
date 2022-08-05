@@ -29,9 +29,9 @@ class Caller:
 
         name, ext = os.path.splitext(filename)
 
-        if ext is '.py':
+        if ext == '.py':
             self.call_python(filename, argv)
-        if ext is '.sh':
+        if ext == '.sh':
             self.call_sh(filename, argv)
         
         raise 'Unable to call {}'.format(filename)
