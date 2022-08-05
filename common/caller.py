@@ -19,7 +19,7 @@ class Caller:
 
     def call_sh(self, filename, *argv):
         self.os_call('sudo', 'chmod', '+x', filename)
-        self.os_call(['su', '-', 'pi', '-c', filename]+[str(i) for i in argv]])
+        self.os_call(['su', '-', 'pi', '-c', filename]+[str(i) for i in argv])
 
     def call_python(self, filename, *argv):
         self.os_call(['su', '-', 'pi', '-c', '"python \"{}\""'.format(filename)]+[str(i) for i in argv])
