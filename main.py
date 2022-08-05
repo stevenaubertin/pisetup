@@ -23,10 +23,10 @@ for package in configs['packages']:
 
 # Setup localization
 caller.call('./localization/locale.sh', configs['locale'])
-caller.call('./localization/timezone.sh', configs['timezone'])
+#caller.call('./localization/timezone.sh', configs['timezone']) #Should already be set by the imager
 
 # Setup Network
-caller.call('./network/toggle_ssh.sh', configs['toggle_ssh'])
+#caller.call('./network/toggle_ssh.sh', configs['toggle_ssh']) #Should already be set by the imager
 
 # Setup System
 caller.call('./hardware/disable_swap.sh')

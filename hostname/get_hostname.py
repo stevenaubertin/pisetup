@@ -1,7 +1,5 @@
 import requests
 import re
-import os
-import subprocess
 
 name_regex_str = r"[a-zA-Z0-9]*-?[a-zA-Z0-9]+"
 ipv4_regex_str = r"(?:[0-9]{1,3}\.){3}[0-9]{1,3}"
