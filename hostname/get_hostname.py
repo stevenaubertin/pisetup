@@ -20,7 +20,7 @@ statics_regex = re.compile(
 
 response = requests.request(
     "GET", 
-    '<URL>, 
+    '<URL>', 
     headers={ 'Authorization': '<AUTH>' }, 
     data = {},
     verify = False
