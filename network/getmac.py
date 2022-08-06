@@ -9,7 +9,7 @@ def get_mac():
     chunk_size = 2
 
     def split(head, tail):
-        if tail is '':
+        if tail == '':
             return [head.upper()]
         return [head.upper()] + split(tail[:chunk_size], tail[chunk_size:])
 
