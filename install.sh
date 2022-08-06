@@ -1,14 +1,18 @@
-#!/bin/bash
+#!/bin/sh
 
-# Update packages sources
+# Update packages sources and requirements
 sudo apt-get update && sudo apt-get upgrade -y
 
 # Installing Packages
 echo "Installing Packages"
+sudo apt-get install curl -y
+sudo apt-get install git -y
 sudo apt-get install tree -y
 sudo apt-get install wget -y
-sudo apt-get install git -y
 sudo apt-get install nano -y
+
+# Clone install repo
+git clone https://github.com/stevenaubertin/pisetup
 
 # Disable swap
 echo Disabling swap
@@ -37,14 +41,16 @@ sudo systemctl start docker
 # Setup locals
 loc="en_CA.UTF-8"
 echo "setup local $loc"
-sed -i 's/^# *\('"loc"'\)/\1/' /etc/locale.gen
-locale-gen --purge
-locale-gen "loc UTF-8"
-update-locale LANG="loc"
+sudo sed -i 's/^# *\('"$loc"'\)/\1/' /etc/locale.gen
+sudo locale-gen --purge
+sudo locale-gen "$loc UTF-8"
+sudo update-locale LANG="$loc"
 dpkg-reconfigure -f noninteractive locales
 echo "locale will be updated after reboot"
 echo "default value : $(cat /etc/default/locale | grep LANG)"
 
 echo "Change locale and hostname"
-#sudo raspi-config
+sudo raspi-config
+
+sudo reboot
 
