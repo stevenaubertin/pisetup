@@ -22,7 +22,7 @@ def call_file(filepath, message=None):
     os.system('sudo chmod u+x {}'.format(filepath))
     if './' not in filepath:
         filepath = './' + filepath
-    call('sudo {}'.format(filepath), message)
+    call('{}'.format(filepath), message)
 
 
 # Packages
