@@ -20,7 +20,7 @@ statics_regex = re.compile(
     re.IGNORECASE | re.MULTILINE
 )
 
-basic = HTTPBasicAuth('bananeverte', 'I manage the new fruit basket closely')
+basic = HTTPBasicAuth('a', 'lol')
 response = requests.get('https://192.168.1.1/status-devices.asp?_=1659816271622', auth=basic, verify=False)
 
 devlist = response.text
