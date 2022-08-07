@@ -1,7 +1,9 @@
+from logging import error
 import requests
 from requests.auth import HTTPBasicAuth
 import re
 import json
+import sys
 
 name_regex_str = r"[a-zA-Z0-9]*-?[a-zA-Z0-9]+"
 ipv4_regex_str = r"(?:[0-9]{1,3}\.){3}[0-9]{1,3}"
@@ -20,59 +22,71 @@ statics_regex = re.compile(
     re.IGNORECASE | re.MULTILINE
 )
 
-basic = HTTPBasicAuth()
-response = requests.get('https://192.168.1.1/status-devices.asp?_=1659816271622', auth=basic, verify=False)
 
-devlist = response.text
-lease = [str(i).replace("'", '').split(',') for i in lease_regex.findall(devlist)]
-statics = [str(i).replace("'", '').split('<') for i in statics_regex.findall(devlist)]
-arplist = [str(i).replace("'", '').split(',') for i in arplist_regex.findall(devlist)]
+def main(argv):
+    if len(argv) == 0 :
+        error('username and password are required, \nUSAGE :\n python '+__file__.split('\\')[-1]+' <username> <password>')
+        sys.exit(-1)
 
-# Format lease
-l = [
-    {
-        'name': i[0],
-        'mac': i[1] if ':' in i[1] else i[2],
-        'ip': i[1] if ':' in i[2] else i[2],
-    } for i in lease
-]
+    username = argv[0]
+    password = argv[1]
 
-# Format statics
-s = [
-    {
-        'name': i[-1],
-        'mac': i[0] if ':' in i[0] else i[1],
-        'ip': i[0] if ':' in i[1] else i[1],
-    } for i in statics
-]
+    basic = HTTPBasicAuth(username, password)
+    response = requests.get('https://192.168.1.1/status-devices.asp?_=1659816271622', auth=basic, verify=False)
 
-# Format arplist
-def find_name(mac):
-    v = s + l
-    r = [i for i in filter(lambda x: x['mac'] == mac, v)]
-    return r[0]['name'] if len(r) > 0 else ''
+    devlist = response.text
+    lease = [str(i).replace("'", '').split(',') for i in lease_regex.findall(devlist)]
+    statics = [str(i).replace("'", '').split('<') for i in statics_regex.findall(devlist)]
+    arplist = [str(i).replace("'", '').split(',') for i in arplist_regex.findall(devlist)]
 
-arp = {}
-for d in [{i[-1]:{j for j in i[:-1]}} for i in arplist]:
-    k = [*d][0] # stupid python way of getting first keys
-    values = [i for i in d[k]]
-    mac = values[0] if ':' in values[0] else values[1]
-    ip = values[1] if ':' in values[0] else values[0]
-    name = find_name(mac)
-    v = {
-        'name': name,
-        'mac': mac,
-        'ip': ip
-    }
-    if k in arp.keys():
-        arp[k].append(v)
-    else:
-        arp[k] = [v]
+    # Format lease
+    l = [
+        {
+            'name': i[0],
+            'mac': i[1] if ':' in i[1] else i[2],
+            'ip': i[1] if ':' in i[2] else i[2],
+        } for i in lease
+    ]
 
-result = json.dumps({
-    'arplist': arp,
-    'lease': l,
-    'statics': s
-})
+    # Format statics
+    s = [
+        {
+            'name': i[-1],
+            'mac': i[0] if ':' in i[0] else i[1],
+            'ip': i[0] if ':' in i[1] else i[1],
+        } for i in statics
+    ]
 
-print(result)
+    # Format arplist
+    def find_name(mac) -> str:
+        r = [i for i in filter(lambda x: x['mac'] == mac, s + l)]
+        return r[0]['name'] if len(r) > 0 else ''
+
+    arp = {}
+    for d in [{i[-1]:{j for j in i[:-1]}} for i in arplist]:
+        k = [*d][0] # stupid python way of getting first keys
+        values = [i for i in d[k]]
+        mac = values[0] if ':' in values[0] else values[1]
+        ip = values[1] if ':' in values[0] else values[0]
+        name = find_name(mac)
+        v = {
+            'name': name,
+            'mac': mac,
+            'ip': ip
+        }
+        if k in arp.keys():
+            arp[k].append(v)
+        else:
+            arp[k] = [v]
+
+    result = json.dumps({
+        'arplist': arp,
+        'lease': l,
+        'statics': s
+    })
+
+    print(result)
+
+
+if __name__ == '__main__':
+    sys.exit(main(sys.argv[1:]))
