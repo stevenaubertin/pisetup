@@ -1,39 +1,67 @@
 #!/bin/python
 
+import os
 import json
-import logging
-from common.caller import Caller
 
-# Loads configurations
-with open('./config.json', 'r') as fp:
-    configs = json.load(fp)
 
-# Setup logger and helper
-logging.basicConfig(format=configs['logformat'], filename=configs['logfile'], level=logging.INFO)
-caller = Caller(logging)
+directory="./pisetup/"
+config_path = directory+'config.json'
+
+
+def call(cmd, message=None, verbose=True):
+    if message : print(message)
+    v = 'Success'
+    if os.system(cmd) != 0:
+        v = 'Error while executing "{}"'.format(cmd)
+    if verbose:
+        print(v)
+        print()
+
+
+def call_file(filepath, message=None):
+    os.system('sudo chmod u+x {}'.format(filepath))
+    if './' not in filepath:
+        filepath = './' + filepath
+    call('sudo {}'.format(filepath), message)
+
 
 # Packages
-if configs['update'] is True:
-    caller.call('./package/update.sh')
-if configs['upgrade'] is True:
-    caller.call('./package/upgrade.sh')
+call('sudo apt-get update && sudo apt-get upgrade -y', 'Updating packages')
+
+# Setup Git
+call_file('{}git/install.sh'.format(directory), 'Setup Git')
+
+# Clone repository
+call('git clone https://github.com/stevenaubertin/pisetup', 'Clone repository')
+
+# Loads configurations
+try:
+    print('Loading Configuration')
+    with open(config_path, 'r') as fp:
+        configs = json.load(fp)
+except:
+    raise('Error while loading configuration {}'.format(config_path))
+print('Done\n')
+
+# Installing packages
 for package in configs['packages']:
-    caller.call('./package/install.sh', package)
+    call('sudo apt-get install {} -y'.format(package), 'Installing {}'.format(package))
+print()
 
-# Setup localization
-caller.call('./localization/locale.sh', configs['locale'])
-#caller.call('./localization/timezone.sh', configs['timezone']) #Should already be set by the imager
-
-# Setup Network
-#caller.call('./network/toggle_ssh.sh', configs['toggle_ssh']) #Should already be set by the imager
+# Installing Powershell
+call_file('{}powershell/install.sh'.format(directory), 'Installing Powershell')
 
 # Setup System
-caller.call('./hardware/disable_swap.sh')
-caller.call('./hardware/memsplit.sh', configs['memsplit'])
+print('Setup System')
+call('{}system/disable_swap.sh'.format(directory), 'Disabling swap')
+call('{}system/memsplit.sh {}'.format(directory, configs['memsplit']), 'Memsplit {}'.format(configs['memsplit']))
+print()
 
-# Install Docker
-caller.call('./docker/install.sh')
-#caller.call('./kubernetes/install.sh')
+# Installing Docker and friends
+call_file('{}docker/install.sh'.format(directory), 'Installing Docker and Friends')
 
-# Reboot
-caller.os_call('reboot')
+# Setup locals
+call_file('{}localization/locale.sh'.format(directory), 'Setup locals')
+
+# Get Mac Address
+call('mac=$(python {}network/getmac.py)'.format(directory), 'Get Mac Address')

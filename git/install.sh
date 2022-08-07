@@ -1,6 +1,6 @@
 #!/bin/bash
 
-apt-get install git
+sudo apt-get install git -y
 
 git config --global user.name "x0r"
 git config --global user.email "stevenaubert@gmail.com"

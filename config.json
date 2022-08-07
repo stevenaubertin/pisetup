@@ -2,11 +2,6 @@
     "locale":"en_CA.UTF-8",
     "timezone":"America/Montreal",
     "memsplit":"16",
-    "toggle_ssh":"Enable",
-    "logfile":"pisetup.log",
-    "logformat":"[%(levelname)s]:%(asctime)s %(message)s",
-    "update":"True",
-    "upgrade":"True",
     "packages":[
         "git",
         "curl",

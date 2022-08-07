@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 echo Disabling swap
 sudo dphys-swapfile swapoff && \
