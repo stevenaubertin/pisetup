@@ -1,3 +1,5 @@
+from gettext import find
+from sys import api_version
 import requests
 from requests.auth import HTTPBasicAuth
 import re
@@ -20,37 +22,59 @@ statics_regex = re.compile(
     re.IGNORECASE | re.MULTILINE
 )
 
-basic = HTTPBasicAuth('bananeverte', 'I manage the new fruit basket closely')
+basic = HTTPBasicAuth()
 response = requests.get('https://192.168.1.1/status-devices.asp?_=1659816271622', auth=basic, verify=False)
 
 devlist = response.text
-arplist = [str(i).replace("'", '').split(',') for i in arplist_regex.findall(devlist)]
 lease = [str(i).replace("'", '').split(',') for i in lease_regex.findall(devlist)]
 statics = [str(i).replace("'", '').split('<') for i in statics_regex.findall(devlist)]
+arplist = [str(i).replace("'", '').split(',') for i in arplist_regex.findall(devlist)]
 
-arp = [{i[-1]:{j for j in i[:-1]}} for i in arplist]
-#print(arp)
-a = {}
-for d in arp:
+# Format lease
+l = [
+    {
+        'name': i[0],
+        'mac': i[1] if ':' in i[1] else i[2],
+        'ip': i[1] if ':' in i[2] else i[2],
+    } for i in lease
+]
+
+# Format statics
+s = [
+    {
+        'name': i[-1],
+        'mac': i[0] if ':' in i[0] else i[1],
+        'ip': i[0] if ':' in i[1] else i[1],
+    } for i in statics
+]
+
+# Format arplist
+def find_name(mac):
+    v = s + l
+    r = [i for i in filter(lambda x: x['mac'] == mac, v)]
+    return r[0]['name'] if len(r) > 0 else ''
+
+arp = {}
+for d in [{i[-1]:{j for j in i[:-1]}} for i in arplist]:
     k = [*d][0] # stupid python way of getting first keys
-    values = d[k]
-    if k in a.keys():
-        a[k].append(values)
+    values = [i for i in d[k]]
+    mac = values[0] if ':' in values[0] else values[1]
+    ip = values[1] if ':' in values[0] else values[0]
+    name = find_name(mac)
+    v = {
+        'name': name,
+        'mac': mac,
+        'ip': ip
+    }
+    if k in arp.keys():
+        arp[k].append(v)
     else:
-        a[k] = [values]
+        arp[k] = [v]
 
-print(a)
-
-#arp2 = arp
-#print(arp2)
-exit()
-print(lease)
-print(statics)
-exit()
 result = json.dumps({
-    'arplist': {i[-1]:i[:-1] for i in arplist},
-    'lease': {i[-1]:i[:-1] for i in lease},
-    'statics': {i[-1]:i[:-1] for i in statics}
+    'arplist': arp,
+    'lease': l,
+    'statics': s
 })
 
 print(result)
