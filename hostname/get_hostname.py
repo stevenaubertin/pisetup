@@ -1,5 +1,7 @@
 import requests
+from requests.auth import HTTPBasicAuth
 import re
+import json
 
 name_regex_str = r"[a-zA-Z0-9]*-?[a-zA-Z0-9]+"
 ipv4_regex_str = r"(?:[0-9]{1,3}\.){3}[0-9]{1,3}"
@@ -18,25 +20,37 @@ statics_regex = re.compile(
     re.IGNORECASE | re.MULTILINE
 )
 
-response = requests.request(
-    "GET", 
-    '<URL>', 
-    headers={ 'Authorization': '<AUTH>' }, 
-    data = {},
-    verify = False
-)
+basic = HTTPBasicAuth('bananeverte', 'I manage the new fruit basket closely')
+response = requests.get('https://192.168.1.1/status-devices.asp?_=1659816271622', auth=basic, verify=False)
 
-devlist = response.text.encode('utf8')
+devlist = response.text
 arplist = [str(i).replace("'", '').split(',') for i in arplist_regex.findall(devlist)]
 lease = [str(i).replace("'", '').split(',') for i in lease_regex.findall(devlist)]
 statics = [str(i).replace("'", '').split('<') for i in statics_regex.findall(devlist)]
 
-def print_part(name, data):
-    print(name)
-    for i in data:
-        print(i)
-    print('')
+arp = [{i[-1]:{j for j in i[:-1]}} for i in arplist]
+#print(arp)
+a = {}
+for d in arp:
+    k = [*d][0] # stupid python way of getting first keys
+    values = d[k]
+    if k in a.keys():
+        a[k].append(values)
+    else:
+        a[k] = [values]
 
-print_part('arplist', arplist)
-print_part('lease', lease)
-print_part('statics', statics)
+print(a)
+
+#arp2 = arp
+#print(arp2)
+exit()
+print(lease)
+print(statics)
+exit()
+result = json.dumps({
+    'arplist': {i[-1]:i[:-1] for i in arplist},
+    'lease': {i[-1]:i[:-1] for i in lease},
+    'statics': {i[-1]:i[:-1] for i in statics}
+})
+
+print(result)

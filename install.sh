@@ -50,7 +50,9 @@ echo "locale will be updated after reboot"
 echo "default value : $(cat /etc/default/locale | grep LANG)"
 
 echo "Change locale and hostname"
-sudo raspi-config
+# Get mac
+# get device list
+# match
 
 sudo reboot
 
