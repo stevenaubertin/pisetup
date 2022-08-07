@@ -32,16 +32,10 @@ except:
     raise('Error while loading configuration {}'.format(config_path))
 print('Done\n')
 
-# Packages
-call('sudo apt-get update && sudo apt-get upgrade -y', 'Updating packages')
-
 # Installing packages
 for package in configs['packages']:
     call('sudo apt-get install {} -y'.format(package), 'Installing {}'.format(package))
 print()
-
-# Clone repository
-call('git clone https://github.com/stevenaubertin/pisetup', 'Clone repository')
 
 # Installing Powershell
 call_file('{}powershell/install.sh'.format(directory), 'Installing Powershell')
