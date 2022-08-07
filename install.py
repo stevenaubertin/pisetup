@@ -20,9 +20,7 @@ def call(cmd, message=None, verbose=True):
 
 def call_file(filepath, message=None):
     os.system('chmod u+x {}'.format(filepath))
-    if './' not in filepath:
-        filepath = './' + filepath
-    call('{}'.format(filepath), message)
+    call(filepath, message)
 
 
 # Packages
