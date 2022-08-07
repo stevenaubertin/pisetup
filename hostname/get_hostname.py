@@ -1,5 +1,3 @@
-from gettext import find
-from sys import api_version
 import requests
 from requests.auth import HTTPBasicAuth
 import re
