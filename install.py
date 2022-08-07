@@ -23,9 +23,6 @@ def call_file(filepath, message=None):
     call(filepath, message)
 
 
-# Packages
-call('sudo apt-get update && sudo apt-get upgrade -y', 'Updating packages')
-
 # Loads configurations
 try:
     print('Loading Configuration')
@@ -34,6 +31,9 @@ try:
 except:
     raise('Error while loading configuration {}'.format(config_path))
 print('Done\n')
+
+# Packages
+call('sudo apt-get update && sudo apt-get upgrade -y', 'Updating packages')
 
 # Installing packages
 for package in configs['packages']:
