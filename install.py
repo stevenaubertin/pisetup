@@ -26,12 +26,6 @@ def call_file(filepath, message=None):
 # Packages
 call('sudo apt-get update && sudo apt-get upgrade -y', 'Updating packages')
 
-# Setup Git
-call_file('{}git/install.sh'.format(directory), 'Setup Git')
-
-# Clone repository
-call('git clone https://github.com/stevenaubertin/pisetup', 'Clone repository')
-
 # Loads configurations
 try:
     print('Loading Configuration')
@@ -45,6 +39,9 @@ print('Done\n')
 for package in configs['packages']:
     call('sudo apt-get install {} -y'.format(package), 'Installing {}'.format(package))
 print()
+
+# Clone repository
+call('git clone https://github.com/stevenaubertin/pisetup', 'Clone repository')
 
 # Installing Powershell
 call_file('{}powershell/install.sh'.format(directory), 'Installing Powershell')
