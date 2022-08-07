@@ -1,3 +1,5 @@
+#!/bin/python
+
 from logging import error
 import requests
 from requests.auth import HTTPBasicAuth
@@ -24,14 +26,7 @@ statics_regex = re.compile(
 )
 
 
-def main(argv):
-    if len(argv) == 0 :
-        error('username and password are required, \nUSAGE :\n python '+__file__.split('\\')[-1]+' <username> <password>')
-        sys.exit(-1)
-
-    username = argv[0]
-    password = argv[1]
-
+def get_devices(username, password) -> str:
     urllib3.disable_warnings()
     basic = HTTPBasicAuth(username, password)
     response = requests.get('https://192.168.1.1/status-devices.asp?_=1659816271622', auth=basic, verify=False)
@@ -81,13 +76,23 @@ def main(argv):
         else:
             arp[k] = [v]
 
-    result = json.dumps({
+    return json.dumps({
         'arplist': arp,
         'lease': l,
         'statics': s
     })
 
-    print(result)
+
+def main(argv):
+    if len(argv) == 0 :
+        error('username and password are required, \nUSAGE :\n python '+__file__.split('\\')[-1]+' <username> <password>')
+        sys.exit(-1)
+
+    username = argv[0]
+    password = argv[1]
+
+    devices = get_devices(username, password)
+    print(devices)
 
 
 if __name__ == '__main__':
