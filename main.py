@@ -1,6 +1,5 @@
 #!/bin/python
 
-import os
 import json
 import logging
 from common.caller import Caller
