@@ -4,6 +4,7 @@ from requests.auth import HTTPBasicAuth
 import re
 import json
 import sys
+import urllib3
 
 name_regex_str = r"[a-zA-Z0-9]*-?[a-zA-Z0-9]+"
 ipv4_regex_str = r"(?:[0-9]{1,3}\.){3}[0-9]{1,3}"
@@ -31,6 +32,7 @@ def main(argv):
     username = argv[0]
     password = argv[1]
 
+    urllib3.disable_warnings()
     basic = HTTPBasicAuth(username, password)
     response = requests.get('https://192.168.1.1/status-devices.asp?_=1659816271622', auth=basic, verify=False)
 
