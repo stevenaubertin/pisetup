@@ -1,11 +1,5 @@
 #!/bin/sh
 
-# Clone install repo
-git clone https://github.com/stevenaubertin/pisetup
-cd pisetup
-
-
-
 #VARIABLES
 memsplitsize=16
 loc="en_CA.UTF-8"
@@ -46,7 +40,7 @@ echo "docker deamon on start"
 sudo systemctl start docker
 
 # Setup locals
-echo "setup local $loc"
+echo "setup locale $loc"
 sudo sed -i 's/^# *\('"$loc"'\)/\1/' /etc/locale.gen
 sudo locale-gen --purge
 sudo locale-gen "$loc UTF-8"
