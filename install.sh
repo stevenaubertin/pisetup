@@ -8,6 +8,7 @@ loc="en_CA.UTF-8"
 sudo apt-get update && sudo apt-get upgrade -y
 
 # Installing Packages
+echo '###################################'
 echo "Installing Packages"
 sudo apt-get install curl -y
 sudo apt-get install git -y
@@ -16,6 +17,8 @@ sudo apt-get install wget -y
 sudo apt-get install nano -y
 
 # Install Powershell
+echo '###################################'
+echo "Installing Powershell"
 chmod u+x ./powershell/install.sh
 ./powershell/./install.sh
 
@@ -26,6 +29,7 @@ sudo dphys-swapfile uninstall && \
 sudo update-rc.d dphys-swapfile remove
 echo Adding " cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory" to /boot/cmdline.txt
 
+echo '###################################'
 echo "Mem split $memsplitsize"
 sudo cp /boot/cmdline.txt /boot/cmdline_backup.txt
 orig="$(head -n1 /boot/cmdline.txt) cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory"
@@ -33,6 +37,7 @@ echo $orig | sudo tee /boot/cmdline.txt
 sudo raspi-config nonint do_memory_split $memsplitsize
 
 # Install Docker and Docker-Compose
+echo '###################################'
 echo "Installing docker and docker compose"
 curl -sSL get.docker.com | sh && sudo usermod x0r -aG docker
 #sudo apt-get install libffi-dev libssl-dev
@@ -40,10 +45,12 @@ curl -sSL get.docker.com | sh && sudo usermod x0r -aG docker
 #sudo apt-get install -y python3 python3-pip
 sudo apt-get install docker-compose -y
 
+echo '###################################'
 echo "docker deamon on start"
 sudo systemctl start docker
 
 # Setup locals
+echo '###################################'
 echo "setup locale $loc"
 sudo sed -i 's/^# *\('"$loc"'\)/\1/' /etc/locale.gen
 sudo locale-gen --purge
@@ -53,8 +60,8 @@ dpkg-reconfigure -f noninteractive locales
 echo "locale will be updated after reboot"
 echo "default value : $(cat /etc/default/locale | grep LANG)"
 
-echo "Change locale and hostname"
-
+echo '###################################'
+echo "hostname"
 # Get mac
 # get device list
 # match
