@@ -3,17 +3,21 @@
 #VARIABLES
 memsplitsize=16
 loc="en_CA.UTF-8"
-packages=curl,git,tree,wget,nano
 
 # Update packages sources and requirements
 sudo apt-get update && sudo apt-get upgrade -y
 
 # Installing Packages
 echo "Installing Packages"
-for val in ${packages//,/ } 
-do 
-   sudo apt-get install $val -y 
-done
+sudo apt-get install curl -y
+sudo apt-get install git -y
+sudo apt-get install tree -y
+sudo apt-get install wget -y
+sudo apt-get install nano -y
+
+# Install Powershell
+chmod u+x ./powershell/install.sh
+./powershell/./install.sh
 
 # Disable swap
 echo Disabling swap
