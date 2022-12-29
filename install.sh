@@ -23,7 +23,7 @@ chmod u+x ./powershell/install.sh
 ./powershell/./install.sh
 
 # Setup default editor
-
+# TODO
 
 # Disable swap
 echo Disabling swap

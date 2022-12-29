@@ -33,12 +33,25 @@ git clone https://github.com/stevenaubertin/pisetup && cd pisetup
 
 ### Set env variables for router username and password
 ``` 
-EXPORT USERNAME=
-EXPORT PASSWORD=
+export USERNAME=
+export PASSWORD=
 ```
 
 ### Run the install script
 ```
 chmod u+x install.sh
 ./install.sh
+```
+
+# TL;DR
+```
+export USERNAME=
+export PASSWORD=
+
+sudo apt-get update && sudo apt-get upgrade -y 
+&& sudo apt-get install git -y 
+&& git clone https://github.com/stevenaubertin/pisetup 
+&& cd pisetup
+&& chmod u+x install.sh
+&& ./install.sh
 ```
