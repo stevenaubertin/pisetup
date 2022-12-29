@@ -1,8 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 
 #VARIABLES
 memsplitsize=16
 loc="en_CA.UTF-8"
+#USERNAME="" #FROM ENV
+#PASSWORD="" #From ENV
 
 # Update packages sources and requirements
 sudo apt-get update && sudo apt-get upgrade -y
@@ -63,9 +65,8 @@ echo "default value : $(cat /etc/default/locale | grep LANG)"
 echo '###################################'
 echo "hostname"
 mac=${python ./network/getmac.py}
+hostname=${python ./hostname/get_hostname.py "$USERNAME" "$PASSWORD" $mac}
 
-# get device list
-# match
 
 sudo reboot
 
