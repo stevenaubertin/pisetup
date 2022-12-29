@@ -28,9 +28,7 @@ sudo apt-get install git -y
 
 ### Clone pisetup installation
 ```
-sudo apt-get install giy -y
-git clone https://github.com/stevenaubertin/pisetup'
-cd pisetup
+git clone https://github.com/stevenaubertin/pisetup && cd pisetup
 ```
 
 ### Set env variables for router username and password
@@ -41,6 +39,6 @@ EXPORT PASSWORD=
 
 ### Run the install script
 ```
-chmod u+x intall.sh
-./intall.sh
+chmod u+x install.sh
+./install.sh
 ```

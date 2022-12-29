@@ -3,8 +3,6 @@
 #VARIABLES
 memsplitsize=16
 loc="en_CA.UTF-8"
-#USERNAME="" #FROM ENV
-#PASSWORD="" #From ENV
 
 # Update packages sources and requirements
 sudo apt-get update && sudo apt-get upgrade -y
@@ -23,6 +21,9 @@ echo '###################################'
 echo "Installing Powershell"
 chmod u+x ./powershell/install.sh
 ./powershell/./install.sh
+
+# Setup default editor
+
 
 # Disable swap
 echo Disabling swap
@@ -67,9 +68,9 @@ echo "hostname"
 mac=${python ./network/getmac.py}
 hostname=${python ./hostname/get_hostname.py "$USERNAME" "$PASSWORD" $mac}
 echo "hostname found is $hostname"
-sudo raspi-config nonint do_hostname "$hostname"
-sudo hostname -b "$hostname"
-sudo systemctl restart avahi-daemon
+sudo -E raspi-config nonint do_hostname "$hostname"
+sudo -E hostname -b "$hostname"
+sudo -E systemctl restart avahi-daemon
 
 sudo reboot
 
