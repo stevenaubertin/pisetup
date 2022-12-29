@@ -62,7 +62,8 @@ echo "default value : $(cat /etc/default/locale | grep LANG)"
 
 echo '###################################'
 echo "hostname"
-# Get mac
+mac=${python ./network/getmac.py}
+
 # get device list
 # match
 
