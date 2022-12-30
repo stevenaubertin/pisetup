@@ -65,8 +65,8 @@ echo "default value : $(cat /etc/default/locale | grep LANG)"
 
 echo '###################################'
 echo "hostname"
-mac=${python ./network/getmac.py}
-hostname=${python ./hostname/get_hostname.py "$USERNAME" "$PASSWORD" $mac}
+mac=$(python ./network/getmac.py)
+hostname=$(python ./hostname/get_hostname.py "$USERNAME" "$PASSWORD" $mac)
 echo "hostname found is $hostname"
 sudo -E raspi-config nonint do_hostname "$hostname"
 sudo -E hostname -b "$hostname"
