@@ -55,3 +55,29 @@ sudo apt-get update && sudo apt-get upgrade -y
 && chmod u+x install.sh
 && ./install.sh
 ```
+
+## Setting Swarm
+### Setup docker swarm on manager
+```
+sudo docker swarm init --advertise-addr 192.168.1.51
+```
+### Use the output of the commande on other pi
+
+### Setup the Vizualization service
+```
+sudo docker service create \
+        --name viz \
+        --publish 8080:8080/tcp \
+        --constraint node.role==manager \
+        --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock \
+        alexellis2/visualizer-arm:latest
+```
+Url
+```
+http://192.168.1.51:8080
+```
+
+### Create a registery
+```
+docker service create --name registry --publish published=5000,target=5000 registry:2
+```
