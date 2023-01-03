@@ -48,12 +48,7 @@ chmod u+x install.sh
 export USERNAME=
 export PASSWORD=
 
-sudo apt-get update && sudo apt-get upgrade -y 
-&& sudo apt-get install git -y 
-&& git clone https://github.com/stevenaubertin/pisetup 
-&& cd pisetup
-&& chmod u+x install.sh
-&& ./install.sh
+sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get install git -y && git clone https://github.com/stevenaubertin/pisetup && cd pisetup && chmod u+x install.sh && ./install.sh
 ```
 
 ## Setting Swarm
