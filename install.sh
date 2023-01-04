@@ -82,4 +82,3 @@ sudo -E systemctl restart avahi-daemon
 echo
 
 sudo reboot
-
