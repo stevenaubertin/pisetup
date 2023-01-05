@@ -72,7 +72,7 @@ echo "default value : $(cat /etc/default/locale | grep LANG)"
 echo
 
 echo '###################################'
-echo "hostname"
+echo "setup hostname"
 mac=$(python ./network/getmac.py)
 hostname=$(python ./hostname/get_hostname.py "$USERNAME" "$PASSWORD" $mac)
 echo "hostname found is $hostname"
@@ -80,5 +80,11 @@ sudo -E raspi-config nonint do_hostname "$hostname"
 sudo -E hostname -b "$hostname"
 sudo -E systemctl restart avahi-daemon
 echo
+
+echo '###################################'
+echo "remove folders"
+rm -rf /usr/games
+cd ~
+rm -rf pisetup
 
 sudo reboot
