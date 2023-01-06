@@ -84,6 +84,7 @@ echo
 echo '###################################'
 echo "remove folders"
 rm -rf /usr/games
+export PATH=`echo $PATH | tr ":" "\n" | grep -v "games" | tr "\n" ":"`
 cd ~
 rm -rf pisetup
 
