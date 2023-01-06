@@ -82,10 +82,18 @@ sudo -E systemctl restart avahi-daemon
 echo
 
 echo '###################################'
+echo "Setup Banner"
+mv banner/banner.sh ~/.banner.sh
+chmod u+x ~/.banner.sh
+sudo echo "clear;sudo ~/.banner.sh" >> ~/.profile
+echo
+
+echo '###################################'
 echo "remove folders"
 rm -rf /usr/games
 export PATH=`echo $PATH | tr ":" "\n" | grep -v "games" | tr "\n" ":"`
 cd ~
 rm -rf pisetup
+echo
 
 sudo reboot
