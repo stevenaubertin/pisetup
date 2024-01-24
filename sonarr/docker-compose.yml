@@ -1,0 +1,20 @@
+---
+version: "2.1"
+services:
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Montreal
+    volumes:
+      - C:/Users/x0r/repo/pisetup/sonarr/config:/config
+      - C:/Users/x0r/tv:/tv #optional
+      - C:/Users/x0r/Downloads:/downloads #optional
+    ports:
+      - 8989:8989
+    restart: unless-stopped
+
+# https://github.com/linuxserver/docker-sonarr/pkgs/container/sonarr
+# https://github.com/linuxserver/docker-sonarr

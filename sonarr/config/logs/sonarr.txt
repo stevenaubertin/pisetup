@@ -1,0 +1,24 @@
+2023-02-25 21:19:44.5|Warn|DownloadMonitoringService|Unable to retrieve queue and history items from Transmission
+
+[v3.0.9.1549] NzbDrone.Core.Download.Clients.DownloadClientAuthenticationException: Failed to authenticate with Transmission.
+  at NzbDrone.Core.Download.Clients.Transmission.TransmissionProxy.AuthenticateClient (NzbDrone.Common.Http.HttpRequestBuilder requestBuilder, NzbDrone.Core.Download.Clients.Transmission.TransmissionSettings settings, System.Boolean reauthenticate) [0x000b9] in M:\BuildAgent\work\63739567f01dbcc2\src\NzbDrone.Core\Download\Clients\Transmission\TransmissionProxy.cs:237 
+  at NzbDrone.Core.Download.Clients.Transmission.TransmissionProxy.ProcessRequest (System.String action, System.Object arguments, NzbDrone.Core.Download.Clients.Transmission.TransmissionSettings settings) [0x0001f] in M:\BuildAgent\work\63739567f01dbcc2\src\NzbDrone.Core\Download\Clients\Transmission\TransmissionProxy.cs:256 
+  at NzbDrone.Core.Download.Clients.Transmission.TransmissionProxy.GetTorrentStatus (System.Collections.Generic.IEnumerable`1[T] hashStrings, NzbDrone.Core.Download.Clients.Transmission.TransmissionSettings settings) [0x000cb] in M:\BuildAgent\work\63739567f01dbcc2\src\NzbDrone.Core\Download\Clients\Transmission\TransmissionProxy.cs:188 
+  at NzbDrone.Core.Download.Clients.Transmission.TransmissionProxy.GetTorrentStatus (NzbDrone.Core.Download.Clients.Transmission.TransmissionSettings settings) [0x00000] in M:\BuildAgent\work\63739567f01dbcc2\src\NzbDrone.Core\Download\Clients\Transmission\TransmissionProxy.cs:153 
+  at NzbDrone.Core.Download.Clients.Transmission.TransmissionProxy.GetTorrents (NzbDrone.Core.Download.Clients.Transmission.TransmissionSettings settings) [0x00000] in M:\BuildAgent\work\63739567f01dbcc2\src\NzbDrone.Core\Download\Clients\Transmission\TransmissionProxy.cs:43 
+  at NzbDrone.Core.Download.Clients.Transmission.TransmissionBase.GetItems () [0x00012] in M:\BuildAgent\work\63739567f01dbcc2\src\NzbDrone.Core\Download\Clients\Transmission\TransmissionBase.cs:36 
+  at NzbDrone.Core.Download.TrackedDownloads.DownloadMonitoringService.ProcessClientDownloads (NzbDrone.Core.Download.IDownloadClient downloadClient) [0x0000c] in M:\BuildAgent\work\63739567f01dbcc2\src\NzbDrone.Core\Download\TrackedDownloads\DownloadMonitoringService.cs:93 
+
+2023-02-25 21:19:44.9|Info|RefreshEpisodeService|Starting episode info refresh for: [75897][South Park]
+2023-02-25 21:19:44.9|Info|BackupService|Starting Backup
+2023-02-25 21:19:45.4|Info|RefreshEpisodeService|Finished episode refresh for series: [75897][South Park].
+2023-02-25 21:19:45.7|Info|DiskScanService|Scanning South Park
+2023-02-25 21:19:46.8|Info|ImportListSyncService|Starting Import List Sync
+2023-02-25 21:19:46.8|Info|ImportListSyncService|Processing 0 list items
+2023-02-25 21:19:46.8|Info|ImportListSyncService|Import List Sync Completed. Items found: 0, Series added: 0
+2023-02-25 21:19:46.8|Info|RecycleBinProvider|Recycle Bin has not been configured, cannot cleanup.
+2023-02-25 21:19:46.9|Info|DiskScanService|Completed scanning disk for South Park
+2023-02-25 21:19:47.0|Info|ExistingMetadataImporter|Found 0 existing metadata files
+2023-02-25 21:19:47.0|Info|ExistingSubtitleImporter|Found 0 existing subtitle files
+2023-02-25 21:19:47.0|Info|ExistingOtherExtraImporter|Found 0 existing other extra files
+2023-02-25 21:19:47.0|Info|ExistingExtraFileService|Found 0 possible extra files, imported 0 files.
